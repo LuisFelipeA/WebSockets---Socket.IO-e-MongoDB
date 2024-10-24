@@ -1,13 +1,18 @@
 import { atualizaTextoEditor } from "./documento.js";
 
-const socket = io();
+const socket = io(); // cria instancia do socket.io
 
-function emitirTextoEditor(texto) {
-    socket.emit("texto_editor", texto);
+function selecionarDocumento(nome) {
+    socket.emit("selecionar_documento", nome); //envia informação para o backend
 }
 
+function emitirTextoEditor(dados) {
+    socket.emit("texto_editor", dados); //envia informação para o backend
+}
+
+// recebe informação do backend
 socket.on("texto_editor_clientes", (texto) => {
     atualizaTextoEditor(texto);
 });
 
-export { emitirTextoEditor };
+export { emitirTextoEditor, selecionarDocumento };
