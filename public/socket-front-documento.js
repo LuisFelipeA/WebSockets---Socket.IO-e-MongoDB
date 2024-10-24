@@ -10,6 +10,11 @@ function emitirTextoEditor(dados) {
     socket.emit("texto_editor", dados); //envia informação para o backend
 }
 
+//recebendo texto do backend
+socket.on("texto_documento", (texto) => {
+    atualizaTextoEditor(texto);
+});
+
 // recebe informação do backend
 socket.on("texto_editor_clientes", (texto) => {
     atualizaTextoEditor(texto);
