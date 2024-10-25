@@ -7,7 +7,7 @@ let documentosColecao;
 try {
     await cliente.connect();
 
-    const db = cliente.db("alura-websockets");
+    const db = cliente.db("documentos_websockets");
     documentosColecao =  db.collection("documentos");
 
     console.log("Conectado ao banco");
