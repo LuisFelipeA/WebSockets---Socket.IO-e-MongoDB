@@ -1,9 +1,12 @@
-import { encontrarDocumento, atualizaDocumento} from "./documentosDb.js";
+import { encontrarDocumento, atualizaDocumento,obterDocumentos} from "./documentosDb.js";
 import io from "./servidor.js";
 
 //cria conexão
 io.on("connection", (socket) => {
-    console.log("Um cliente se conectou! ID: ",socket.id);
+    socket.on("obter_documentos", async (devolverDocumentos) =>{
+        const documentos = await obterDocumentos();
+        devolverDocumentos(documentos);
+    })
 
     // separa documentos por salas
     socket.on("selecionar_documento", async (nomeDocumento) =>{
