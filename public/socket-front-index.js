@@ -1,4 +1,4 @@
-import { inserirLinkDocumento } from "./index.js";
+import { inserirLinkDocumento, removerLinkDocumento } from "./index.js";
 
 const socket = io();
 
@@ -20,6 +20,9 @@ socket.on("documento_existente", (nome) =>{
     alert(`O documento ${nome} ja existe!`);
 })
 
-
+socket.on("excluir_documento_sucesso", (nome) =>{
+    console.log("124")
+    removerLinkDocumento(nome);
+})
 
 export {emitirAdicionarDocumento};

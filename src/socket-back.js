@@ -1,4 +1,4 @@
-import { encontrarDocumento, atualizaDocumento,obterDocumentos, adicionarDocumento} from "./documentosDb.js";
+import { encontrarDocumento, atualizaDocumento,obterDocumentos, adicionarDocumento, excluirDocumento} from "./documentosDb.js";
 import io from "./servidor.js";
 
 //cria conexão
@@ -38,6 +38,20 @@ io.on("connection", (socket) => {
         if (documento) {
             socket.to(nomeDocumento).emit("texto_editor_clientes", texto);
         }
+    });
+
+    socket.on("excluir_documento", async (nome) => {
+        const documentoExiste = (await encontrarDocumento(nome)) !== null;
+
+        if (!documentoExiste) {
+            socket.emit("documento_não_existente", nome);    
+        }
+        else{
+            const resultado = await excluirDocumento(nome);
+            if (resultado.deletedCount) {
+                io.emit("excluir_documento_sucesso", nome);
+            }
+        } 
     });
 
 

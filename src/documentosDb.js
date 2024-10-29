@@ -17,6 +17,11 @@ function adicionarDocumento(nome) {
     return resultado;
 }
 
+function excluirDocumento(nome) {
+    const resultado = documentosColecao.deleteOne({ nome: nome });
+    return resultado;
+}
+
 function atualizaDocumento(nome, texto) {
     const atualizacao = documentosColecao.updateOne({
         nome: nome
@@ -29,4 +34,4 @@ function atualizaDocumento(nome, texto) {
     return atualizacao;
 }
 
-export {encontrarDocumento, atualizaDocumento, obterDocumentos, adicionarDocumento};
+export {encontrarDocumento, atualizaDocumento, obterDocumentos, adicionarDocumento, excluirDocumento};

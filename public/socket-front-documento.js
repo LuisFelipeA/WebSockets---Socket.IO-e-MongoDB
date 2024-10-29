@@ -1,4 +1,4 @@
-import { atualizaTextoEditor } from "./documento.js";
+import { atualizaTextoEditor, alertERedirecionar } from "./documento.js";
 
 const socket = io(); // cria instancia do socket.io
 
@@ -20,4 +20,17 @@ socket.on("texto_editor_clientes", (texto) => {
     atualizaTextoEditor(texto);
 });
 
-export { emitirTextoEditor, selecionarDocumento };
+function emitirExcluirDocumento (nome) {
+    socket.emit("excluir_documento", nome);
+}
+
+socket.on("documento_não_existente", (nome) =>{
+    alert(`O documento ${nome} não existe!`);
+    window.location.href = "/";
+})
+
+socket.on("excluir_documento_sucesso", (nome) => {
+    alertERedirecionar(nome);
+});
+
+export { emitirTextoEditor, selecionarDocumento, emitirExcluirDocumento };
